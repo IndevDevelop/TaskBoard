@@ -1,0 +1,14 @@
+.TodoSection{
+    margin: 25px 30px;
+}
+
+.TodoList{
+    padding: 5px;
+    list-style: none;
+}
+
+@media (max-width:900px){
+    .TodoSection{
+        margin: 25px 15px;
+    }
+}

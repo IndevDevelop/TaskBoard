@@ -1,0 +1,39 @@
+li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding: 10px 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 20px rgba(30, 25, 25, 0.4);
+}
+
+.Todo-Icon{
+    padding: 0 10px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.Todo-Icon--Activated{
+    color: #049440;
+}
+
+.Todo-Item--Check{
+    text-decoration: line-through;
+}
+
+.Todo-Item--Deleted{
+    padding: 2px 10px;
+    margin: -25px 0px;
+    border-radius: 50%;
+    background-color: #D01E1F;
+    font-size: 25px;
+    font-weight: 600;
+    color: rgb(242, 242, 242);
+    align-self: flex-start;
+}
+.Todo-Item--Deleted:hover{
+    font-size: 26px;
+    color: rgb(242, 242, 242);
+    cursor: pointer;
+}

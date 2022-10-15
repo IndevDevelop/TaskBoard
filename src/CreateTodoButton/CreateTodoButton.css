@@ -1,0 +1,12 @@
+
+.Btn-add{
+    position: absolute;
+    left: 80%;
+    bottom: 5%;
+    background-color: #84A9C8;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    padding: 10px 25px;
+    font-size: 50px;
+}
