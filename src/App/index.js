@@ -52,7 +52,7 @@ function App(props) {
       totalTodos={totalTodos}
       totalCompleted={totalCompleted}
       searchValue={searchValue}
-      setSearchValue={searchValue}
+      setSearchValue={setSearchValue}
       searchTodos={searchTodos}
       completedTodo={completedTodo}
       deleteTodo={deleteTodo}
