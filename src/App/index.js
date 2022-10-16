@@ -3,15 +3,63 @@ import React from 'react';
 import { AppUI } from './AppUI';
 
 
-const defaultTodos = [
-  {text: "Clases de ingles", completed: true},
-  {text: "Clases de Redes: Llevar materiales para la clase y poder realizar el laboratorio", completed: false},
-  {text: "Clases de Auditoria", completed: false}
-]
+//const defaultTodos = [
+  //{text: "Clases de ingles", completed: true},
+  //{text: "Clases de Redes: Llevar materiales para la clase y poder realizar el laboratorio", completed: false},
+  //{text: "Clases de Auditoria", completed: false}
+//]
+
+function useLocalStorage(itemName, initialValue){
+  const [err, setErr] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [item, setItem] = React.useState(initialValue);
+
+  React.useEffect(() =>{
+    setTimeout(()=>{
+      try {
+        const localStorageItem = localStorage.getItem(itemName); 
+        let parseItem;
+        if(!localStorageItem){
+          localStorage.setItem(itemName,initialValue);
+          parseItem = [];
+        } else {
+          parseItem = JSON.parse(localStorageItem);
+        }
+
+        setItem(parseItem);
+        setLoading(false);
+      } catch (error) {
+        setErr(error);
+      }
+    },1000)
+  });
+
+  const saveItem = (newItem) =>{
+    try {
+      localStorage.setItem(itemName, JSON.stringify(newItem));
+      setItem(newItem);
+    } catch (error) {
+      setErr(err);
+    }
+  }
+
+  return {
+    item,
+    saveItem,
+    loading,
+    err
+  }
+}
 
 
-function App(props) {
-  const [todos, setTodos] = React.useState(defaultTodos)
+function App() {
+
+  const {
+    item: todos, 
+    saveItem: saveTodos,
+    loading,
+    err
+  } = useLocalStorage("TODOS_V1",[]);
   const [searchValue, setSearchValue] = React.useState('');
 
   const totalTodos = todos.length;
@@ -22,7 +70,7 @@ function App(props) {
     });
     const newTodos = [...todos];
     newTodos[todoIndex].completed = true;
-    setTodos(newTodos);
+    saveTodos(newTodos);
   }
 
   const deleteTodo = (text) => {
@@ -31,7 +79,7 @@ function App(props) {
     });
     const newTodos = [...todos];
     newTodos.splice(todoIndex,1);
-    setTodos(newTodos);
+    saveTodos(newTodos);
   }
 
   //Proceso para buscar TODOs
@@ -49,6 +97,8 @@ function App(props) {
 
   return (
     <AppUI
+      loading={loading}
+      error={err}
       totalTodos={totalTodos}
       totalCompleted={totalCompleted}
       searchValue={searchValue}
